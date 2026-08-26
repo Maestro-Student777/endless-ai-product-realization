@@ -1,0 +1,407 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Explore how Endless AI moves an idea from imagination to a feasible, testable product.">
+  <title>Endless AI Product Realization Playground</title>
+  <style>
+    :root {
+      --ink: #102235;
+      --muted: #506579;
+      --sky: #dff3ff;
+      --paper: #fffdf8;
+      --blue: #3386ff;
+      --pink: #ff79c9;
+      --gold: #ffc95c;
+      --green: #70d6a7;
+      --purple: #c99aff;
+      --line: #17324d;
+      --shadow: 0 16px 44px rgba(16, 34, 53, .13);
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 15% 0%, rgba(255,121,201,.18), transparent 30rem),
+        radial-gradient(circle at 90% 12%, rgba(51,134,255,.20), transparent 35rem),
+        var(--sky);
+      font-family: Inter, ui-rounded, "Segoe UI", system-ui, sans-serif;
+      line-height: 1.5;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .shell { width: min(1180px, calc(100% - 32px)); margin: auto; }
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 22px 0;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 850; letter-spacing: -.02em; }
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 15px;
+      color: white;
+      background: var(--line);
+      box-shadow: var(--shadow);
+      font-size: 24px;
+      transform: rotate(-5deg);
+    }
+    nav a { color: var(--ink); text-decoration: none; font-weight: 700; margin-left: 20px; }
+    .hero {
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 42px;
+      padding: 76px 0 52px;
+    }
+    .eyebrow { color: #175db9; font-weight: 850; text-transform: uppercase; letter-spacing: .13em; font-size: .78rem; }
+    h1 { margin: 12px 0 18px; font-size: clamp(2.7rem, 7vw, 6rem); line-height: .93; letter-spacing: -.065em; }
+    .lead { max-width: 690px; color: var(--muted); font-size: clamp(1.08rem, 2vw, 1.35rem); }
+    .promise { color: var(--ink); font-weight: 800; }
+    .plug-art {
+      min-height: 340px;
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .plug {
+      display: grid;
+      place-items: center;
+      width: 220px;
+      height: 220px;
+      border: 4px solid var(--line);
+      border-radius: 42% 58% 56% 44%;
+      background: var(--gold);
+      font-size: 105px;
+      box-shadow: var(--shadow);
+      animation: float 4s ease-in-out infinite;
+    }
+    .orbit {
+      position: absolute;
+      padding: 10px 16px;
+      border: 2px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      font-weight: 800;
+      box-shadow: 5px 5px 0 rgba(23,50,77,.16);
+    }
+    .o1 { top: 20px; left: 10px; } .o2 { right: 0; top: 82px; }
+    .o3 { bottom: 16px; left: 32px; } .o4 { right: 22px; bottom: 36px; }
+    @keyframes float { 50% { transform: translateY(-12px) rotate(3deg); } }
+    .panel {
+      margin: 28px 0 70px;
+      padding: 28px;
+      border: 3px solid var(--line);
+      border-radius: 28px;
+      background: rgba(255,253,248,.92);
+      box-shadow: var(--shadow);
+    }
+    .panel h2 { margin: 0 0 8px; font-size: clamp(1.6rem, 3vw, 2.4rem); letter-spacing: -.035em; }
+    .panel-intro { margin-top: 0; color: var(--muted); }
+    .idea-row { display: flex; gap: 12px; margin-top: 22px; }
+    .idea-row input {
+      flex: 1;
+      min-width: 0;
+      padding: 15px 18px;
+      border: 2px solid #a8bacb;
+      border-radius: 14px;
+      background: white;
+      color: var(--ink);
+    }
+    .primary {
+      padding: 14px 20px;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      background: var(--line);
+      color: white;
+      font-weight: 850;
+      box-shadow: 4px 4px 0 var(--gold);
+    }
+    .stages {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .stage {
+      min-height: 144px;
+      padding: 18px;
+      border: 2px solid var(--line);
+      border-radius: 22px;
+      background: white;
+      transition: transform .18s ease, opacity .18s ease;
+    }
+    .stage.active { transform: translateY(-7px); box-shadow: 0 10px 0 rgba(23,50,77,.12); }
+    .stage.done { background: #e1faed; }
+    .stage-number { color: var(--muted); font-size: .72rem; font-weight: 850; letter-spacing: .1em; }
+    .stage-icon { display: block; margin: 8px 0; font-size: 27px; }
+    .stage strong { display: block; }
+    .stage small { color: var(--muted); }
+    .lab-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 24px; }
+    .module-bank, .canvas {
+      min-height: 360px;
+      padding: 22px;
+      border: 2px dashed #8aa2b8;
+      border-radius: 22px;
+      background: #f8fcff;
+    }
+    .modules { display: grid; gap: 10px; }
+    .module {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      width: 100%;
+      padding: 12px 14px;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      background: white;
+      color: var(--ink);
+      text-align: left;
+      font-weight: 750;
+    }
+    .module.selected { background: var(--gold); transform: translateX(5px); }
+    .circuit {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+      min-height: 110px;
+      padding: 18px;
+      border: 2px solid #b7c7d5;
+      border-radius: 18px;
+      background: white;
+    }
+    .circuit-piece {
+      padding: 11px 14px;
+      border: 2px solid var(--line);
+      border-radius: 14px;
+      background: #f2eaff;
+      font-weight: 800;
+    }
+    .wire { color: var(--blue); font-size: 22px; font-weight: 900; }
+    .output {
+      display: grid;
+      place-items: center;
+      min-height: 155px;
+      margin-top: 16px;
+      border-radius: 18px;
+      background: #132439;
+      color: #bdd0e1;
+      text-align: center;
+    }
+    .bulb { font-size: 62px; filter: grayscale(1); transition: .25s ease; }
+    .output.on .bulb { filter: none drop-shadow(0 0 18px #fff099); transform: scale(1.08); }
+    .output.on { color: white; background: radial-gradient(circle, #786a20, #132439 65%); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 16px; }
+    .secondary {
+      padding: 11px 15px;
+      border: 2px solid var(--line);
+      border-radius: 12px;
+      background: white;
+      color: var(--ink);
+      font-weight: 800;
+    }
+    .result {
+      display: none;
+      margin-top: 18px;
+      padding: 18px;
+      border-left: 6px solid var(--green);
+      border-radius: 12px;
+      background: #e7fbf1;
+    }
+    .result.show { display: block; }
+    .truth-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .truth { padding: 18px; border: 2px solid var(--line); border-radius: 18px; background: white; }
+    .truth strong { display: block; margin-bottom: 6px; }
+    footer { padding: 24px 0 48px; color: var(--muted); text-align: center; }
+    @media (max-width: 850px) {
+      .hero, .lab-grid { grid-template-columns: 1fr; }
+      .hero { padding-top: 40px; }
+      .plug-art { min-height: 290px; }
+      .stages { grid-template-columns: 1fr 1fr; }
+      .truth-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 540px) {
+      nav { display: none; }
+      .idea-row { flex-direction: column; }
+      .stages { grid-template-columns: 1fr; }
+      .panel { padding: 20px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <div class="brand"><span class="brand-mark">🔌</span><span>Endless AI</span></div>
+    <nav aria-label="Primary">
+      <a href="#journey">Journey</a>
+      <a href="#lab">Circuit Lab</a>
+      <a href="#truth">Truth Labels</a>
+    </nav>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Product Realization Playground</div>
+        <h1>Plug an idea into reality.</h1>
+        <p class="lead">Describe what you imagine. Explore how it might work. Connect it to real components, professional review, suppliers, testing, and delivery.</p>
+        <p class="lead promise">Then press 🔌 to make it real.</p>
+      </div>
+      <div class="plug-art" aria-label="The plug connects an idea to a product">
+        <span class="orbit o1">💡 Idea</span>
+        <span class="orbit o2">🧪 Test</span>
+        <span class="orbit o3">🏭 Make</span>
+        <span class="orbit o4">📦 Receive</span>
+        <div class="plug">🔌</div>
+      </div>
+    </section>
+
+    <section class="panel" id="journey">
+      <h2>Start with one sentence</h2>
+      <p class="panel-intro">This first prototype demonstrates the workflow without claiming that a simulation is a certified physical product.</p>
+      <div class="idea-row">
+        <input id="ideaInput" aria-label="Describe your product idea" value="A touch-sensitive lamp that softly pulses with music">
+        <button class="primary" id="mapIdea">Map my idea</button>
+      </div>
+      <div class="stages" aria-live="polite">
+        <article class="stage active"><span class="stage-number">01</span><span class="stage-icon">💡</span><strong>Idea</strong><small>Capture purpose and experience</small></article>
+        <article class="stage"><span class="stage-number">02</span><span class="stage-icon">🎨</span><strong>Design</strong><small>Shape, behavior and materials</small></article>
+        <article class="stage"><span class="stage-number">03</span><span class="stage-icon">🧪</span><strong>Simulate</strong><small>Model assumptions and limits</small></article>
+        <article class="stage"><span class="stage-number">04</span><span class="stage-icon">🏭</span><strong>Source</strong><small>Parts, suppliers and quotes</small></article>
+        <article class="stage"><span class="stage-number">05</span><span class="stage-icon">📦</span><strong>Deliver</strong><small>Make, test and document</small></article>
+      </div>
+    </section>
+
+    <section class="panel" id="lab">
+      <h2>Emoji Circuit Lab</h2>
+      <p class="panel-intro">Choose modules, build a simple low-voltage concept, then test the screen model.</p>
+      <div class="lab-grid">
+        <div class="module-bank">
+          <h3>Module stickers</h3>
+          <div class="modules">
+            <button class="module" data-module="🔋 Power"><span>🔋</span> Low-voltage power</button>
+            <button class="module" data-module="🎚️ Control"><span>🎚️</span> On/off control</button>
+            <button class="module" data-module="👆 Touch"><span>👆</span> Touch sensor</button>
+            <button class="module" data-module="🎤 Sound"><span>🎤</span> Sound sensor</button>
+            <button class="module" data-module="💡 Light"><span>💡</span> LED light</button>
+          </div>
+        </div>
+        <div class="canvas">
+          <h3>Your screen circuit</h3>
+          <div class="circuit" id="circuit"><span>Select modules from the left.</span></div>
+          <div class="output" id="output">
+            <div><div class="bulb">💡</div><strong id="outputText">Waiting for power and light</strong></div>
+          </div>
+          <div class="actions">
+            <button class="secondary" id="testCircuit">▶ Test circuit</button>
+            <button class="secondary" id="clearCircuit">↺ Clear</button>
+            <button class="primary" id="makeReal">🔌 Make this real</button>
+          </div>
+          <div class="result" id="result">
+            <strong>Reality check started.</strong><br>
+            Next, Endless AI would turn this concept into requirements, a bill of materials, safety boundaries, sourcing questions, and a physical test plan.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel" id="truth">
+      <h2>Know what kind of claim you are seeing</h2>
+      <p class="panel-intro">Every idea earns a clear status so possibility is never confused with proof.</p>
+      <div class="truth-grid">
+        <article class="truth"><strong>✅ Established</strong><span>Supported by reliable references or standard practice.</span></article>
+        <article class="truth"><strong>🖥️ Simulated</strong><span>Works on screen under stated assumptions.</span></article>
+        <article class="truth"><strong>🧪 Experimental</strong><span>Plausible, but physical evidence is still required.</span></article>
+      </div>
+    </section>
+  </main>
+
+  <footer class="shell">EAI-LAMP-0001 · Learning demonstration · Not a certified electrical design</footer>
+
+  <script>
+    const selected = [];
+    const circuit = document.getElementById('circuit');
+    const output = document.getElementById('output');
+    const outputText = document.getElementById('outputText');
+    const result = document.getElementById('result');
+    const stages = [...document.querySelectorAll('.stage')];
+
+    function renderCircuit() {
+      if (!selected.length) {
+        circuit.innerHTML = '<span>Select modules from the left.</span>';
+        return;
+      }
+      circuit.innerHTML = selected.map(function(item, index) {
+        const wire = index ? '<span class="wire">→</span>' : '';
+        return wire + '<span class="circuit-piece">' + item + '</span>';
+      }).join('');
+    }
+
+    document.querySelectorAll('.module').forEach(function(button) {
+      button.addEventListener('click', function() {
+        const moduleName = button.dataset.module;
+        const existing = selected.indexOf(moduleName);
+        if (existing >= 0) {
+          selected.splice(existing, 1);
+          button.classList.remove('selected');
+        } else {
+          selected.push(moduleName);
+          button.classList.add('selected');
+        }
+        output.classList.remove('on');
+        result.classList.remove('show');
+        renderCircuit();
+      });
+    });
+
+    document.getElementById('testCircuit').addEventListener('click', function() {
+      const hasPower = selected.includes('🔋 Power');
+      const hasLight = selected.includes('💡 Light');
+      if (hasPower && hasLight) {
+        output.classList.add('on');
+        outputText.textContent = selected.includes('🎤 Sound') ? 'Light responds to the simulated sound signal' :
+          selected.includes('👆 Touch') ? 'Light responds to the simulated touch signal' :
+          'The simulated light is on';
+      } else {
+        output.classList.remove('on');
+        outputText.textContent = 'Add both 🔋 power and 💡 light';
+      }
+    });
+
+    document.getElementById('clearCircuit').addEventListener('click', function() {
+      selected.splice(0, selected.length);
+      document.querySelectorAll('.module').forEach(function(button) { button.classList.remove('selected'); });
+      output.classList.remove('on');
+      outputText.textContent = 'Waiting for power and light';
+      result.classList.remove('show');
+      renderCircuit();
+    });
+
+    document.getElementById('makeReal').addEventListener('click', function() {
+      result.classList.add('show');
+    });
+
+    document.getElementById('mapIdea').addEventListener('click', function() {
+      let index = 0;
+      stages.forEach(function(stage) { stage.classList.remove('active', 'done'); });
+      function advance() {
+        if (index > 0) stages[index - 1].classList.add('done');
+        if (index < stages.length) {
+          stages.forEach(function(stage) { stage.classList.remove('active'); });
+          stages[index].classList.add('active');
+          index += 1;
+          window.setTimeout(advance, 420);
+        }
+      }
+      advance();
+    });
+  </script>
+</body>
+</html>
