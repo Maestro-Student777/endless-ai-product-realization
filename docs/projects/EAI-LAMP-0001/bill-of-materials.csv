@@ -1,0 +1,7 @@
+item_id,emoji,function,component_category,example_specification,quantity,source_status,estimated_unit_cost,safety_or_test_note
+PWR-001,🔌,Input power,Power supply,Certified isolated low-voltage adapter,TBD,Research required,TBD,Do not prototype mains-voltage circuitry on paper
+LGT-001,💡,Light output,LED module,Low-voltage dimmable LED module,TBD,Research required,TBD,Verify voltage current heat and polarity
+CTL-001,🎚️,User control,Switch or dimmer,Low-voltage compatible control,TBD,Research required,TBD,Verify electrical rating and accessible parts
+SNS-001,👆,Touch input,Capacitive sensor,Low-voltage touch-sensing module,TBD,Optional,TBD,Test through intended enclosure material
+ENC-001,🛡️,Physical protection,Enclosure,Insulating heat-tolerant enclosure,TBD,Design required,TBD,Review ventilation strain relief and flame behavior
+CON-001,🔗,Internal connection,Connector or wire,Insulated keyed connection system,TBD,Research required,TBD,Prevent reversed polarity and exposed conductors
