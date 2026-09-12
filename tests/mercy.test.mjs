@@ -71,6 +71,7 @@ test('generated pages resolve links and assets under a project subpath',()=>{
   for(const name of ['index','resources','works','project','my-corner']) {
     const path=resolve(root,'mercy',name+'.html');
     const html=readFileSync(path,'utf8');
+    assert.doesNotMatch(html,/<\/[a-z][a-z0-9]*\s+[^>\s][^>]*>/i,`${name}: malformed closing tag`);
     const ids=[...html.matchAll(/\bid="([^"]+)"/g)].map(m=>m[1]);
     assert.equal(new Set(ids).size,ids.length,`${name}: duplicate element ID`);
     for(const m of html.matchAll(/(?:href|src)="([^"]+)"/g)){
