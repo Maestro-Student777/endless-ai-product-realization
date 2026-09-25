@@ -91,7 +91,7 @@ function startResources() {
       card.hidden = !matches;
       if (matches) shown++;
     });
-    document.querySelector('#resource-count').textContent = `${shown} ${shown === 1 ? 'resource' : 'resources'} · Source links reviewed September 12, 2026`;
+    document.querySelector('#resource-count').textContent = `${shown} ${shown === 1 ? 'resource' : 'resources'} · Links updated September 25, 2026`;
     document.querySelector('#resource-empty').hidden = shown > 0;
   };
   ['resource-topic','resource-area'].forEach(id => document.querySelector('#'+id).addEventListener('change',filter));
