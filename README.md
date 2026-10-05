@@ -24,3 +24,12 @@ It works in a regular browser without ChatGPT, an installation, or an account. T
 The dependency-free source is in `mercy/`. Run `node scripts/build-mercy.mjs` after updating page templates or the resource catalog, and `node --test tests/mercy.test.mjs` to check the core behavior. The existing GitHub Pages workflow publishes both demonstrations from `main`.
 
 > Learning demonstration only. This public repository must not contain private customer information, payment data, confidential supplier quotations, contracts, passwords, or API secrets.
+
+## Kent’s Carpet Cleaning Fieldbook
+
+A working prototype for a Mankato carpet-cleaning business: equipment, local prospect contacts, operations, business setup, financing resources, portfolio copy, and quote drafts.
+
+- [Open the public fieldbook](https://maestro-student777.github.io/endless-ai-product-realization/kent-cleaning/)
+- [View its source](kent-cleaning/)
+
+The portfolio and quote form are examples. Quote requests are not submitted or stored by a server; the visitor must copy the draft or open an email draft after Kent’s approved contact details are added.
