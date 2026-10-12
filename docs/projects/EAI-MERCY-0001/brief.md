@@ -1,6 +1,6 @@
 # EAI-MERCY-0001: Mercy Network
 
-Endless AI's second public demonstration connects practical needs, gifts of time or resources, and the fourteen Catholic works of mercy. It complements the existing product realization playground.
+Endless SI's second public demonstration connects practical needs, gifts of time or resources, and the fourteen Catholic works of mercy. It complements the existing product realization playground.
 
 ## Public experience
 

@@ -1,4 +1,4 @@
-# Endless AI Product Realization
+# Endless SI Product Realization
 
 A learning and product-realization workspace for moving from an idea to a researched, simulated, specified, quoted, tested, and deliverable product.
 

@@ -1,4 +1,4 @@
-# Endless AI Knowledge Articles
+# Endless SI Knowledge Articles
 
 This library separates demonstrated facts, calculations, simulations, open questions, and imaginative concepts so readers can learn without confusing a possibility with a verified product.
 
